@@ -30,7 +30,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/auth/logout',[UserController::class,'logout'])->middleware('auth:sanctum');
 Route::get('/products', [ProductController::class, 'getAllproducts']);
+Route::get('/users', [UserController::class, 'getAllusers']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::post('/product', [ProductController::class, 'store']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+Route::put('/auth/{id}', [UserController::class, 'update']);

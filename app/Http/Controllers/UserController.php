@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Resources\userResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 //use Illuminate\Support\Facades\Hash;
@@ -63,5 +63,26 @@ class UserController extends Controller
         return response()->json([
             'data' => $request->user(), 
             'message' => 'token deleted succesfuly'],200);
+    }
+    public function update(Request $request, $id)
+    {
+        //$post = post::find($id);
+        ///$post->update($request->all());
+
+        ///  return $post;
+        $post= user::findOrFail($id);
+        $post->name = $request->name;
+       
+        $post->email = $request->email;
+        $post->password = $request->password;
+       
+        if($post->save()){
+            return new userResource($post);
+        }
+    }
+    public function getAllusers()
+    {
+        $posts= user::paginate(10);
+        return userResource::collection($posts);
     }
 }

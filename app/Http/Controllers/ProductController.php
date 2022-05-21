@@ -44,7 +44,7 @@ class ProductController extends Controller
         ///$post->update($request->all());
 
         ///  return $post;
-        $posts= products::findOrFail($id);
+        $post= products::findOrFail($id);
         $post->name = $request->name;
        
         $post->description = $request->description;
@@ -60,9 +60,10 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $posts= products::findOrFail($id);
+        $post= products::findOrFail($id);
         if($post->delete()){
-            return new ProductResource($post);
+         //   return new ProductResource($post);
+            return response()->ok();
         }
     }
 }
